@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Auto</title>
+    <!-- Tailwind CSS y DaisyUI por CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-base-200 min-h-screen flex items-center justify-center p-4">
+
+    <div class="card w-full max-w-md bg-base-100 shadow-md">
+        <div class="card-body">
+            <h2 class="card-title text-xl text-error">🗑️ Confirmar Eliminación</h2>
+            <p class="text-sm text-gray-500 mb-4">¿Estás seguro de que deseas eliminar este auto?</p>
+
+            <form method="POST" action="/borrar/{{ Auto[0] }}"
+                  onsubmit="return confirm('¿Seguro que deseas eliminar este auto?');" class="space-y-4">
+
+                <div class="form-control">
+                    <label class="label font-medium">Marca</label>
+                    <input type="text" name="txtMarca" value="{{ Auto[1] }}" class="input input-bordered w-full bg-base-200" readonly>
+                </div>
+
+                <div class="form-control">
+                    <label class="label font-medium">Modelo</label>
+                    <input type="text" name="txtModelo" value="{{ Auto[2] }}" class="input input-bordered w-full bg-base-200" readonly>
+                </div>
+
+                <div class="form-control">
+                    <label class="label font-medium">Año</label>
+                    <input type="number" name="txtAnio" value="{{ Auto[3] }}" class="input input-bordered w-full bg-base-200" readonly>
+                </div>
+
+                <div class="card-actions justify-end pt-2">
+                    <a href="/" class="btn btn-ghost">Regresar</a>
+                    <button type="submit" class="btn btn-error">Eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
