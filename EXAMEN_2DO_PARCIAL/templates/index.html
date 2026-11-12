@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Autos</title>
+    <!-- Tailwind CSS y DaisyUI por CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-base-200 min-h-screen p-6">
+
+    <div class="max-w-4xl mx-auto space-y-6">
+        <!-- Título -->
+        <div class="navbar bg-base-100 shadow-md rounded-box">
+            <h1 class="text-2xl font-bold text-primary px-4">GESTIÓN DE AUTOS</h1>
+        </div>
+
+        <!-- Mensajes Flash -->
+        {% with mensajes = get_flashed_messages() %}
+            {% if mensajes %}
+                {% for mensaje in mensajes %}
+                    <div class="alert alert-info shadow-md">
+                        <span>{{ mensaje }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Formulario de Registro -->
+        <div class="card bg-base-100 shadow-md">
+            <div class="card-body">
+                <h2 class="card-title text-lg mb-2">Registrar Auto</h2>
+                <form method="POST" action="/guardar" class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                    <div class="form-control">
+                        <label class="label font-medium">Marca</label>
+                        <input type="text" name="txtMarca" placeholder="Ej. Toyota" class="input input-bordered w-full" required>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label font-medium">Modelo</label>
+                        <input type="text" name="txtModelo" placeholder="Ej. Corolla" class="input input-bordered w-full" required>
+                    </div>
+
+                    <div class="form-control">
+                        <label class="label font-medium">Año</label>
+                        <input type="number" name="txtAnio" placeholder="Ej. 2022" class="input input-bordered w-full" required>
+                    </div>
+
+                    <div class="md:col-span-3 flex justify-end">
+                        <button type="submit" class="btn btn-primary">Guardar Auto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tabla de Registros -->
+        <div class="card bg-base-100 shadow-md">
+            <div class="card-body">
+                <h2 class="card-title text-lg mb-2">Listado de Autos</h2>
+                <div class="overflow-x-auto">
+                    <table class="table table-zebra w-full">
+                        <thead>
+                            <tr class="text-base">
+                                <th>ID</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Año</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for auto in listAutos %}
+                            <tr>
+                                <td class="font-bold">{{ auto[0] }}</td>
+                                <td>{{ auto[1] }}</td>
+                                <td>{{ auto[2] }}</td>
+                                <td>{{ auto[3] }}</td>
+                                <td class="text-center space-x-2">
+                                    <a href="/editar/{{ auto[0] }}" class="btn btn-warning btn-sm">Editar</a>
+                                    <a href="/eliminar/{{ auto[0] }}" class="btn btn-error btn-sm">Eliminar</a>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center text-gray-500 py-4">No hay autos registrados.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
